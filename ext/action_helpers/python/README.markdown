@@ -15,13 +15,13 @@ replying with _message_ and _timestamp_
 
 <pre>
 #!/bin/env python
-	import mcollectiveah
-	import time
+import mcollectiveah
+import time
 
-    mc = mcollectiveah.MCollectiveAction()
-	mc.reply['message'] = mc.request['message']
-	mc.reply['timestamp'] = time.strftime("%c")
-	mc.reply['info'] = "some text to info log in the server"
+mc = mcollectiveah.MCollectiveAction()
+mc.reply['message'] = mc.request['message']
+mc.reply['timestamp'] = time.strftime("%c")
+mc.reply['info'] = "some text to info log in the server"
 </pre>
 
 Calling it with _mco rpc_ results in:
