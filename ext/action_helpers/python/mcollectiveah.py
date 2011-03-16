@@ -57,7 +57,7 @@ class MCollectiveAction(object):
         sys.stderr.write("%s\n" % msg)
 
     def fail(self, msg):
-        """Logs error message and exitst with RPCAborded"""
+        """Logs error message and exitst with RPCAborted"""
         self.error(msg)
         sys.exit(1)
 
