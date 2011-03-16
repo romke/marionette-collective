@@ -46,8 +46,18 @@ class MCollectiveAction(object):
         except IOError, e:
             raise MCollectiveActionFileError("Could not write reply file `%s`: %s" % (self.outfile, e))
 
-    def fail(self):
+    def fail(self, msg):
+        """Logs error message and exitst with RPCAborded"""
+        self.reply['error'] = msg
         sys.exit(1)
+
+    def error(self, msg):
+        """Prints line to STDERR that will be logged at error level in the mcollectived log file"""
+        sys.stderr.write("%s\n" % msg)
+
+    def info(self, msg):
+        """Prints line to STDOUT that will be logged at info level in the mcollectived log file"""
+        sys.stdout.write("%s\n" % msg)
 
     def __del__(self):
         self.send()
