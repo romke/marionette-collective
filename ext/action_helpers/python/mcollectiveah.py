@@ -1,6 +1,12 @@
 #!/bin/env python
 # -*- coding: utf-8 -*- vim: set ts=4 et sw=4 fdm=indent :
-import os, simplejson, sys
+import os, sys
+
+try:
+    import simplejson
+except ImportError:
+    sys.stderr.write('Unable to load simplejson python module.')
+    sys.exit(1)
 
 class MCollectiveActionNoEnv(Exception):
     pass
@@ -46,14 +52,14 @@ class MCollectiveAction(object):
         except IOError, e:
             raise MCollectiveActionFileError("Could not write reply file `%s`: %s" % (self.outfile, e))
 
-    def fail(self, msg):
-        """Logs error message and exitst with RPCAborded"""
-        self.reply['error'] = msg
-        sys.exit(1)
-
     def error(self, msg):
         """Prints line to STDERR that will be logged at error level in the mcollectived log file"""
         sys.stderr.write("%s\n" % msg)
+
+    def fail(self, msg):
+        """Logs error message and exitst with RPCAborded"""
+        self.error(msg)
+        sys.exit(1)
 
     def info(self, msg):
         """Prints line to STDOUT that will be logged at info level in the mcollectived log file"""
